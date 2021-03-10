@@ -45,6 +45,7 @@ public class SpaceInvadersGame extends Game {
 
     @Override
     public void onTurn(int step) {
+        moveSpaceObjects();
         drawScene();
     }
 
@@ -58,5 +59,9 @@ public class SpaceInvadersGame extends Game {
         stars.add(new Star(31,41));
         stars.add(new Star(28,33));
         stars.add(new Star(22,7));
+    }
+
+    private void moveSpaceObjects() {
+        enemyFleet.move();
     }
 }

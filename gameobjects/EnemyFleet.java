@@ -1,7 +1,9 @@
 package com.javarush.games.spaceinvaders.gameobjects;
 
 import com.javarush.engine.cell.Game;
+import com.javarush.games.spaceinvaders.Direction;
 import com.javarush.games.spaceinvaders.ShapeMatrix;
+import com.javarush.games.spaceinvaders.SpaceInvadersGame;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,7 @@ public class EnemyFleet {
     private static final int COLUMNS_COUNT = 10;
     private static final int STEP = ShapeMatrix.ENEMY.length + 1;
     private List<EnemyShip> ships;
+    private Direction direction = Direction.RIGHT;
 
     private void createShips() {
         ships = new ArrayList<>();
@@ -50,5 +53,35 @@ public class EnemyFleet {
             }
         }
         return result;
+    }
+
+    private double getSpeed() {
+        if (2.0 <= (3.0 / ships.size())) {
+            return 2.0;
+        } else return (3.0 / ships.size());
+    }
+
+    public void move() {
+        if (ships.size() > 0) {
+            boolean changed = false;
+            if (Direction.LEFT.equals(direction) && (getLeftBorder() < 0)) {
+                direction = Direction.RIGHT;
+                changed = true;
+            }
+            if (Direction.RIGHT.equals(direction)
+                    && (getRightBorder() > SpaceInvadersGame.WIDTH)) {
+                direction = Direction.LEFT;
+                changed = true;
+            }
+            if (changed) {
+                for (EnemyShip enemyShip : ships) {
+                    enemyShip.move(Direction.DOWN, getSpeed());
+                }
+            } else {
+                for (EnemyShip enemyShip : ships) {
+                    enemyShip.move(direction, getSpeed());
+                }
+            }
+        }
     }
 }
