@@ -10,6 +10,22 @@ public class SpaceInvadersGame extends Game {
     @Override
     public void initialize() {
         setScreenSize(WIDTH, HEIGHT);
+        createGame();
     }
 
+    private void createGame() {
+        drawScene();
+    }
+
+    private void drawScene() {
+        drawField();
+    }
+
+    private void drawField() {
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
+                setCellValueEx(j, i, Color.BLACK, "");
+            }
+        }
+    }
 }
