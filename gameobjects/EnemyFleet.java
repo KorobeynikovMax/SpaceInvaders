@@ -84,4 +84,15 @@ public class EnemyFleet {
             }
         }
     }
+
+    public Bullet fire(Game game) {
+        int enemyShipsCount = ships.size();
+        if (enemyShipsCount > 0) {
+            if (game.getRandomNumber(100 / SpaceInvadersGame.COMPLEXITY) > 0) {
+                return null;
+            } else {
+                return ships.get(game.getRandomNumber(enemyShipsCount)).fire();
+            }
+        } else return null;
+    }
 }
