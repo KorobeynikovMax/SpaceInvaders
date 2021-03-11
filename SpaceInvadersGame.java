@@ -148,6 +148,13 @@ public class SpaceInvadersGame extends Game {
         enemyFleet.deleteHiddenShips();
         removeDeadBullets();
         if (!playerShip.isAlive) stopGameWithDelay();
+        if (enemyFleet.getBottomBorder() >= playerShip.y) {
+            playerShip.kill();
+        }
+        if (enemyFleet.getShipsCount() == 0) {
+            playerShip.win();
+            stopGameWithDelay();
+        }
     }
 
     private void stopGame(boolean isWin) {

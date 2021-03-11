@@ -119,4 +119,18 @@ public class EnemyFleet {
             }
         }
     }
+
+    public double getBottomBorder() {
+        double result = 0;
+        for (EnemyShip enemyShip : ships) {
+            if (enemyShip.y + enemyShip.height > result) {
+                result = enemyShip.y + enemyShip.height;
+            }
+        }
+        return result;
+    }
+
+    public int getShipsCount() {
+        return ships.size();
+    }
 }
