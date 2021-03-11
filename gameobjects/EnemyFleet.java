@@ -23,6 +23,8 @@ public class EnemyFleet {
                 ships.add(new EnemyShip(x * STEP, y * STEP + 12));
             }
         }
+        ships.add(new Boss(STEP * COLUMNS_COUNT / 2 - ShapeMatrix.BOSS_ANIMATION_FIRST.length / 2 - 1,
+                5));
     }
 
     public EnemyFleet() {
@@ -94,5 +96,27 @@ public class EnemyFleet {
                 return ships.get(game.getRandomNumber(enemyShipsCount)).fire();
             }
         } else return null;
+    }
+
+    public void verifyHit(List<Bullet> bullets) {
+        for (EnemyShip enemyShip : ships) {
+            for (Bullet bullet : bullets) {
+                if (enemyShip.isCollision(bullet) && enemyShip.isAlive &&
+                bullet.isAlive) {
+                    enemyShip.kill();
+                    bullet.kill();
+                }
+            }
+        }
+    }
+
+    public void deleteHiddenShips() {
+        List<Ship> list = new ArrayList<>();
+        list.addAll(ships);
+        for (Ship ship : list) {
+            if (!ship.isVisible()) {
+                ships.remove(ship);
+            }
+        }
     }
 }
