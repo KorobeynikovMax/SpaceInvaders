@@ -18,6 +18,8 @@ public class SpaceInvadersGame extends Game {
     private EnemyFleet enemyFleet;
     private List<Bullet> enemyBullets;
     private PlayerShip playerShip;
+    private boolean isGameStopped;
+    private int animationsCount;
 
     @Override
     public void initialize() {
@@ -30,6 +32,8 @@ public class SpaceInvadersGame extends Game {
         enemyFleet = new EnemyFleet();
         enemyBullets = new ArrayList<>();
         playerShip = new PlayerShip();
+        isGameStopped = false;
+        animationsCount = 0;
         setTurnTimer(40);
         drawScene();
     }
@@ -97,5 +101,22 @@ public class SpaceInvadersGame extends Game {
     private void check() {
         playerShip.verifyHit(enemyBullets);
         removeDeadBullets();
+        if (!playerShip.isAlive) stopGameWithDelay();
+    }
+
+    private void stopGame(boolean isWin) {
+        isGameStopped = true;
+        stopTurnTimer();
+        if (isWin) {
+            showMessageDialog(Color.PLUM, "Congratulations! You won",
+                    Color.GREEN, 45);
+        } else {
+            showMessageDialog(Color.GRAY, "You lose!", Color.RED, 45);
+        }
+    }
+
+    private void stopGameWithDelay() {
+        animationsCount++;
+        if (animationsCount >= 10) stopGame(playerShip.isAlive);
     }
 }
