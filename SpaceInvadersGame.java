@@ -86,6 +86,18 @@ public class SpaceInvadersGame extends Game {
         for (Bullet bullet : enemyBullets) {
             bullet.move();
         }
+        playerShip.move();
+    }
+
+    @Override
+    public void onKeyPress(Key key) {
+        if (Key.SPACE.equals(key) && isGameStopped) {
+            createGame();
+        } else if (Key.LEFT.equals(key)) {
+            playerShip.setDirection(Direction.LEFT);
+        } else if (Key.RIGHT.equals(key)) {
+            playerShip.setDirection(Direction.RIGHT);
+        }
     }
 
     private void removeDeadBullets() {
